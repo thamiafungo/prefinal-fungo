@@ -6,13 +6,10 @@ export default function ProductList({ products, setProducts }) {
 
   const changeQty = (id, amount) => {
     setProducts(
-      products.map(p => {
+      products.map((p) => {
         if (p.id === id) {
           const newQty = p.quantity + amount;
-
-          if (newQty < 0) return p;       
-          if (newQty > p.stock) return p; 
-
+          if (newQty < 0) return p;
           return { ...p, quantity: newQty };
         }
         return p;
@@ -20,8 +17,14 @@ export default function ProductList({ products, setProducts }) {
     );
   };
 
-  const filtered = filter ? products.filter(p => p.category === filter) : products;
-  const total = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
+  const filtered = filter
+    ? products.filter((p) => p.category === filter)
+    : products;
+
+  const total = products.reduce(
+    (sum, p) => sum + p.price * p.quantity,
+    0
+  );
 
   return (
     <div>
@@ -35,37 +38,42 @@ export default function ProductList({ products, setProducts }) {
             <option value="Drink">Drink</option>
           </select>
         </div>
-        <div><strong>Total: ₱{total}</strong></div>
+        <div>
+          <strong>Total: ₱{total}</strong>
+        </div>
       </div>
 
       <table className="table">
         <thead>
           <tr>
-            <th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Qty</th><th>Subtotal</th><th>Action</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {filtered.map(p => (
-            <tr key={p.id} className={p.stock < 5 ? "low-stock" : ""}> {/*highlight if stock < 5 */}
-              <td><img className="product-image" src={p.image} alt="" /></td>
-              <td><Link to={`/product/${p.id}`}>{p.name}</Link></td>
+          {filtered.map((p) => (
+            <tr
+              key={p.id}
+              className={p.quantity < 5 ? "low-stock" : ""}
+            >
+              <td>
+                <img className="product-image" src={p.image} alt={p.name} />
+              </td>
+              <td>
+                <Link to={`/product/${p.id}`}>{p.name}</Link>
+              </td>
               <td>{p.category}</td>
               <td>₱{p.price}</td>
               <td>{p.quantity}</td>
               <td>₱{p.price * p.quantity}</td>
               <td>
-                <button 
-                  onClick={() => changeQty(p.id, 1)}
-                  disabled={p.quantity >= p.stock}  
-                >
-                  +
-                </button>
-
+                <button onClick={() => changeQty(p.id, 1)}>+</button>
                 <button onClick={() => changeQty(p.id, -1)}>-</button>
-
-                {p.quantity >= p.stock && (
-                  <div style={{color:"red", fontSize:"12px"}}>Out of Stock</div> 
-                )}
               </td>
             </tr>
           ))}
