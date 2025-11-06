@@ -15,7 +15,8 @@ export default function App() {
       spec: "Whole Beans",
       rating: 5,
       price: 250,
-      quantity: 3
+      stock: 3,
+      quantity: 0,
     },
     {
       id: 2,
@@ -26,7 +27,8 @@ export default function App() {
       spec: "250g Pack",
       rating: 4,
       price: 280,
-      quantity: 8
+      stock: 8,
+      quantity: 0,
     },
     {
       id: 3,
@@ -37,7 +39,8 @@ export default function App() {
       spec: "16oz Cup",
       rating: 5,
       price: 150,
-      quantity: 2
+      stock: 2,
+      quantity: 0,
     },
   ]);
 

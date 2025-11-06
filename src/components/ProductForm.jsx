@@ -14,12 +14,21 @@ export default function ProductForm({ addProduct }) {
   };
 
   const submit = (e) => {
-    e.preventDefault();
-    for (let x in input) if (!input[x]) return alert("All fields required!");
-    addProduct({...input, price: Number(input.price), quantity: Number(input.quantity), rating: Number(input.rating)});
-    alert("Product Added!");
-    navigate("/");
-  };
+  e.preventDefault();
+  for (let x in input) if (!input[x]) return alert("All fields required!");
+
+  addProduct({
+    ...input,
+    price: Number(input.price),
+    stock: Number(input.quantity), 
+    quantity: 0, 
+    rating: Number(input.rating)
+  });
+
+  alert("Product Added!");
+  navigate("/");
+};
+
 
   return (
     <form onSubmit={submit} className="form-grid">
